@@ -1,0 +1,80 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Sugarcane Quality Predictor - SQUP{% endblock %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle"
+			data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Sugarcane Quality Predictor - SQUP</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/user/Dave">Home</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="page-header">
+		<h1>Hello, {{ name }}!</h1>
+	</div>
+	<img src="..\static\picture.png" id="target" height="500px" width = "500px">
+	<form action="index.php" method="post" onsubmit="return checkCoords();">
+		<div style="margin:5px;">
+			<label>X1 <input type="text" name="x" id="x" size="4"/></label>
+			<label>Y1 <input type="text" name="y" id="y" size="4"/></label>
+			<label>X2 <input type="text" name="x2" id="x2" size="4"/></label>
+			<label>Y2 <input type="text" name="y2" id="y2" size="4"/></label>
+			<label>W <input type="text" name="w" id="w" size="4"/></label>
+			<label>H <input type="text" name="h" id="h" size="4"/></label>
+		</div>
+		<div style="margin:5px;">
+			<input type="submit" value="Crop Image" />
+		</div>
+	</form>
+
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+<script src="https://unpkg.com/jcrop"></script>
+<script type="text/javascript" src="my-script.js"></script>
+<script>  
+//const stage = 
+Jcrop.attach('target');
+
+//stage.listen('crop.move',(widget,e) => {
+  //document.getElementById("x").val(widget.pos);
+  
+//});
+
+$(function(){
+	$('#jcrop_target').Jcrop({
+		onChange: showCoords,
+		onSelect: showCoords
+	});
+});
+function showCoords(c)
+{
+
+	document.getElementById("x").value = "Hello";
+	$('#y').val(c.y);
+	$('#x2').val(c.x2);
+	$('#y2').val(c.y2);
+	$('#w').val(c.w);
+	$('#h').val(c.h);
+};
+
+</script>
+<!--<script src="G:\PythonVSCode\WebDev\flasky\templates\js\jcrop_main.js"></script>-->
+{% endblock %}
