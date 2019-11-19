@@ -1,30 +1,10 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}Sugarcane Quality Predictor - SQUP{% endblock %}
-{% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle"
-			data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">Sugarcane Quality Predictor - SQUP</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/user/Dave">Home</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	{% endblock %}
-{% block content %}
-<div class="container" >
 
-    <div class="page-header">
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="container">
+	<div class="page-header">
+
 		<h1>Hello, {{ name }}!</h1>
 	</div>
 
@@ -97,6 +77,7 @@
   
 //});
 
+
 jQuery(function($){
         // The variable jcrop_api will hold a reference to the
         // Jcrop API once Jcrop is instantiated.
@@ -163,10 +144,6 @@ jQuery(function($){
           })
        
       }
-
-
-
-
 
 </script>
 <!--<script src="G:\PythonVSCode\WebDev\flasky\templates\js\jcrop_main.js"></script>-->
