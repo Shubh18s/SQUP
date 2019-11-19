@@ -3,12 +3,7 @@
 
 {% block page_content %}
 <div class="container">
-	<div class="page-header">
-
-		<h1>Hello, {{ name }}!</h1>
-	</div>
-
-    <!--<div class="container">
+	<!--<div class="container">
         <div style="float: left;">
         <img src="..\static\picture.png" alt="Snow"  id="image1">
         <img src="..\static\picture.png" alt="Forest"  id="image2"></div>
@@ -21,9 +16,10 @@
     </div>-->
 
     <div class="row">
+       <div class="column" style="float: left; margin: 10px"><img src="..\static\picture.png" alt="Forest"  id="image2"></div>
         <div class="column" style="float: left; margin: 10px">
             <img src="..\static\picture.png" alt="Snow"  id="image1"></div>
-        <div class="column" style="float: left; margin: 10px"><img src="..\static\picture.png" alt="Forest"  id="image2"></div>
+         
 
         <div class=" btn-group btn-group-vertical" style="float: right; margin-top: 20px;">
             <button type="button" class="btn btn-default btn-sm btn-rounded " id="Q1" >quality1</button>
@@ -32,7 +28,6 @@
             <button type="button" class="btn btn-default btn-sm btn-rounded " id="ORI">Original</button>
         </div>
     </div>
-
 
 
     <div style="margin:5px;">
@@ -56,27 +51,21 @@
 
 {% block scripts %}
     <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+    
+     
     <script src="https://unpkg.com/jcrop"></script>
 
     <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
     <link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.css" type="text/css" />
 
     <script type="text/javascript">
-//const stage = 
-
-
-//stage.listen('crop.move',(widget,e) => {
-  //document.getElementById("x").val(widget.pos);
-  
-//});
-
 
 jQuery(function($){
         // The variable jcrop_api will hold a reference to the
