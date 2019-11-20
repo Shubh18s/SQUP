@@ -1,165 +1,261 @@
 {% extends "base.html" %}
 
+
 {% block page_content %}
-    <div class="sidenav" >
+    <div>
+    <div class="sidenav" style="float: left">
       <div id="preview-pane">
         <div class="preview-container">
           <img src="..\static\picture.png" class="jcrop-preview" alt="Preview" />
         </div>
       </div>
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-      
-      <h2>Section title</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-              <th>Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>amet</td>
-              <td>consectetur</td>
-              <td>adipiscing</td>
-              <td>elit</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>Integer</td>
-              <td>nec</td>
-              <td>odio</td>
-              <td>Praesent</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>libero</td>
-              <td>Sed</td>
-              <td>cursus</td>
-              <td>ante</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>dapibus</td>
-              <td>diam</td>
-              <td>Sed</td>
-              <td>nisi</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>Nulla</td>
-              <td>quis</td>
-              <td>sem</td>
-              <td>at</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>nibh</td>
-              <td>elementum</td>
-              <td>imperdiet</td>
-              <td>Duis</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>sagittis</td>
-              <td>ipsum</td>
-              <td>Praesent</td>
-              <td>mauris</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>Fusce</td>
-              <td>nec</td>
-              <td>tellus</td>
-              <td>sed</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>augue</td>
-              <td>semper</td>
-              <td>porta</td>
-              <td>Mauris</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>massa</td>
-              <td>Vestibulum</td>
-              <td>lacinia</td>
-              <td>arcu</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>eget</td>
-              <td>nulla</td>
-              <td>Class</td>
-              <td>aptent</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>taciti</td>
-              <td>sociosqu</td>
-              <td>ad</td>
-              <td>litora</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>torquent</td>
-              <td>per</td>
-              <td>conubia</td>
-              <td>nostra</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>per</td>
-              <td>inceptos</td>
-              <td>himenaeos</td>
-              <td>Curabitur</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>sodales</td>
-              <td>ligula</td>
-              <td>in</td>
-              <td>libero</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </main>
+    <table >
+          <tr>
+              <td>Q1</td>
+             <td class = "select"><input id = "Q1" type="number" min="5" max="100" value="20" style="color: black">%
+          </tr>
+          <tr>
+            <td>Q2</td>
+            <td class = "select">
+                <input id = "Q2" type="number" min="5" max="100" value="70" style="color: black">%
+          </tr>
+        <tr>
+        <td>Q3</td>
+        <td class = "select">
+            <input id = "Q3" type="number" min="5" max="100" value="10" style="color: black">%
+      </tr>
+    </table>
+
+        <ul>
+            <li>
+                Q1: 150T/H
+            </li>
+            <li>
+                Q2: 120T/H
+            </li>
+            <li>
+                Q3: 90T/H
+            </li>
+        </ul>
+
+        <table >
+          <tr>
+              <td>Q1</td>
+
+            <td >$</td>
+          </tr>
+          <tr>
+            <td>Q2</td>
+            <td >$</td>
+          </tr>
+        <tr>
+        <td>Q3</td>
+            <td >$</td>
+
+      </tr>
+    </table>
+
+        </div>
+
+
+
+<div class="container" style="float: right; position: relative; z-index: 1000; left: 17%; padding: 2% 2% 2% 2%">
+	<div class="jumbotron">
+    <div class="container" id="graph">
+
+
+    </div>
   </div>
+
 </div>
+
+    </div>
+
+
+
+
+
+
 {% endblock %}
 
-{% block scripts %}
-<link rel="https://codepen.io/chriddyp/pen/bWLwgP.css">
-<style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+{% block scripts %}
+    <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+    <link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.css" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/jcrop"></script>
+
+    <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
+
+    <style>
+    .sidenav {
+      height: 95%; /* Full-height: remove this if you want "auto" height */
+      width: 23%; /* Set the width of the sidebar */
+      position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+      z-index: 1000; /* Stay on top */
+      top: 7%; /* Stay at the top */
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.73); /* Black */
+      overflow-x: hidden; /* Disable horizontal scroll */
+
         }
-      }
+    table{
+        position: relative;
+        margin: 5%;
+        width:90%;
+        left: 1%;
+        z-index: 2000;
+        padding: 2%;
+        border: 2px white solid;
+        top: 5%;
+        padding: 0%;
+        color: #cdcdcd;
+    }
+    tr{
+
+        width: 100%;
+        z-index: 2000;
+        font-size: 15px;
+        color: #cdcdcd;
+    }
+    td{
+        border: white solid 1px;
+        width: 10%;
+    }
+    ul{
+        position: relative;
+        color: #cdcdcd;
+        margin: 2%;
+        top: 5%;
+    }
+    #preview-pane {
+      display: block;
+        width:80%;
+        height: 35%;
+        left: 8%;
+      position: relative;
+      z-index: 2000;
+      top: 2%;
+      padding: 2%;
+      border: 1px rgba(156, 238, 103, 0.4) solid;
+      background-color: white;
+
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+
+      -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* The Javascript code will set the aspect ratio of the crop
+       area based on the size of the thumbnail preview,
+       specified here */
+    .preview-container {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
     </style>
-<link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/dashboard/">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+    <script type="text/javascript">
+        var x = {{x1}};
+        var y = {{ y1 }};
+        var x2 = {{x2}};
+        var y2 = {{ y2 }};
+        var w = {{ w }};
+        var h = {{ h }};
+
+
+    jQuery(function ($) {
+
+
+
+        var rx = 280/ w;
+        var ry = 250 / h;
+
+        $('.jcrop-preview').css({
+            width: Math.round(rx * 512) + 'px',
+            height: Math.round(ry * 512) + 'px',
+            marginLeft: '-' + Math.round(rx * x) + 'px',
+            marginTop: '-' + Math.round(ry * y) + 'px',
+            marginRight: "-" + Math.round(w-rx*x2) + 'px',
+            marginBottom: "-" + Math.round(h-rx*y2) + 'px',
+
+
+        });
+
+
+        $('#Q1').change(function () {
+
+            var left = 100-$('#Q1').val();
+            var portion2 = $('#Q2').val();
+            var portion3 = $('#Q3').val();
+            var newQ2 = portion2/100 * left;
+            var newQ3 = portion3/100 * left;
+
+             $('#Q2').val(Math.round(newQ2));
+             $('#Q3').val(Math.round(newQ3));
+             console.log(left)
+            console.log(portion2)
+            console.log(portion3)
+            console.log(newQ2)
+            console.log(newQ3)
+        })
+
+
+    })
+    </script>
+    <script type="text/javascript">
+const rand = () => Math.random();
+var x = [1, 2, 3, 4, 5];
+const new_data = (trace) => Object.assign(trace, {y: x.map(rand)});
+
+// add random data to three line traces
+var data = [
+    {mode:'lines', line: {color: "#b55400"}},
+    {mode: 'lines', line: {color: "#393e46"}},
+    {mode: 'lines', line: {color: "#222831"}}
+].map(new_data);
+
+var layout = {
+    title: 'User Zoom Persists<br>When uirevision Unchanged',
+    uirevision:'true',
+    xaxis: {autorange: true},
+    yaxis: {autorange: true}
+};
+
+Plotly.react(graph, data, layout);
+
+var myPlot = document.getElementById('graphDiv');
+
+var cnt = 0;
+var interval = setInterval(function() {
+    data = data.map(new_data);
+
+    // user interation will mutate layout and set autorange to false
+    // so we need to reset it to true
+    layout.xaxis.autorange = true;
+    layout.yaxis.autorange = true;
+
+    // not changing uirevision will ensure that user interactions are unchanged
+    // layout.uirevision = rand();
+
+    Plotly.react(graph, data, layout);
+  if(cnt === 100) clearInterval(interval);
+}, 2500);
+
+
+
+Resources
+    </script>
+
+
 {% endblock %}

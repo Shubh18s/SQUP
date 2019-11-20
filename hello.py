@@ -13,29 +13,7 @@ import dash_html_components as html
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-app1 = dash.Dash(
-           __name__,
-           server=app,
 
-           )
-app1.layout = html.Div(children=[
-           html.H1(children='Hello Dash'),
-           html.Div(children='''
-                    Dash: A web application framework for Python.
-                    '''),
-                    dcc.Graph(
-                            id='example-graph',
-                            figure={
-                                    'data': [
-                                            {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
-                                            {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
-                                            ],
-                                            'layout': {
-                                                    'title': 'Dash Data Visualization'
-                                                    }
-                                            }
-                                            )
-        ])
 
 @app.route('/')
 def index():
@@ -53,8 +31,8 @@ def analysis():
     y2 = request.args.get('y2')
 
     return render_template('analysis.html', x1=x1, x2=x2, y1=y1, y2=y2,
-                           w =request.args.get('w'), h = request.args.get('h'),
-                           name = app1.layout)
+                           w =request.args.get('w'), h = request.args.get('h')
+                           )
 
 
 
