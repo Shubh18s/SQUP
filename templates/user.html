@@ -39,9 +39,8 @@
         <label>H <input type="text" name="h" id="h" size="4"/></label>
     </div>
 
-<button type="button" class="btn btn-dark btn-sm btn-rounded " id="analysis"
-        style="width: 100px; height: 40px; float: right; margin-right: 10%; font-size: 100%"
-        >
+<button type="button" class="btn btn-dark btn-sm btn-rounded " id="analysis" href="analysis.html"
+        style="width: 100px; height: 40px; float: right; margin-right: 10%; font-size: 100%">
     <span class="glyphicon glyphicon-stats"></span> Analysis
 </button>
 
@@ -94,7 +93,7 @@ jQuery(function($){
         };
 
         $('#analysis').click(function () {
-             window.location.href='analysis.html?x1='+v1 + '&y1=' + v2;
+             window.location.href='/analysis?x1='+v1 + '&y1=' + v2;
         });
         $('#Q1').click(function () {
             console.log('js/jquery.min.js')
