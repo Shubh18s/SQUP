@@ -1,18 +1,16 @@
-
 from flask import Flask
 from flask import request
+from flask import make_response
+from flask import redirect
+from flask import abort
 from flask import render_template
 from flask_bootstrap import Bootstrap
-import plotly
-import plotly.graph_objs as go
-import pandas as pd
-import numpy as np
-import json
 
 import dash
 import dash_core_components as dcc
-import dash_html_components as html
+import dash_html_components as html 
 #from dashapp import server as application
+
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 app1 = dash.Dash(
@@ -68,7 +66,7 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500
-
-
+   
+    
 if __name__=='__main__':
     app.run(debug=True)
