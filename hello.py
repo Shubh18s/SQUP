@@ -10,9 +10,34 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html 
 #from dashapp import server as application
-
 app = Flask(__name__)
+
 bootstrap = Bootstrap(app)
+app1 = dash.Dash(
+           __name__,
+           server=app
+           )
+app1.layout = html.Div(children=[
+           html.H1(children='Hello Dash'),
+           html.Div(children='''
+                    Dash: A web application framework for Python.
+                    '''),
+                    dcc.Graph(
+                            id='example-graph',
+                            figure={
+                                    'data': [
+                                            {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
+                                            {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
+                                            ],
+                                            'layout': {
+                                                    'title': 'Dash Data Visualization'
+                                                    }
+                                            }
+                                            )
+        ])
+#app1.layout = html.Div("My Dash app")
+#external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
 
 @app.route('/')
 def index():
@@ -47,32 +72,20 @@ def user(name):
 #     return '<h1>Hello, %s</h1>' % user.name
 
 
+
 @app.route('/analysis')
 def analyse():
-    external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-    app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-    app.layout = html.Div(children=[
-        html.H1(children='Hello Dash'),
+     return render_template('analysis.html', name=app1.layout)
+     #return app1.layout
+    #dcc.Slider(value=4, min=-10, max=20, step=0.5,
+        #  labels={-5: '-5 Degrees', 0: '0', 10: '10 Degrees'})
     
-        html.Div(children='''
-            Dash: A web application framework for Python.
-        '''),
-    
-        dcc.Graph(
-            id='example-graph',
-            figure={
-                'data': [
-                    {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
-                    {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
-                ],
-                'layout': {
-                    'title': 'Dash Data Visualization'
-                }
-            }
-        )
-    ])
-    #return render_template('analysis.html', name=app)
-    return app.index()
+    #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+   # app1 = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+   
+   
+   # return render_template('analysis.html', name=app1.run_server(debug = True))
+    #return app1.index()
     
 
 @app.errorhandler(404)
