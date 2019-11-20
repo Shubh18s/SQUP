@@ -85,12 +85,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <script src="https://unpkg.com/jcrop"></script>
-
     <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 
     <style>
@@ -214,47 +210,55 @@
     })
     </script>
     <script type="text/javascript">
-const rand = () => Math.random();
-var x = [1, 2, 3, 4, 5];
-const new_data = (trace) => Object.assign(trace, {y: x.map(rand)});
+     Plotly.d3.csv("C:\\Users\\Aurora\\PycharmProjects\\SQUP\\dataframe.csv", function(buf){
+    var x_time = [], y_Q1 = [], y_Q2 = [], y_Q3 = [];
+    console.log(buf)
+    for (var i = 0; i < buf.length; i++) {
+      row = buf[i];
+      x_time.push( row['Date'] );
+      y_Q1.push( row['Q1_TS'] );
+      y_Q2.push( row['Q2_TS'] );
+      y_Q3.push( row['Q3_TS'] );
+    }
 
-// add random data to three line traces
-var data = [
-    {mode:'lines', line: {color: "#b55400"}},
-    {mode: 'lines', line: {color: "#393e46"}},
-    {mode: 'lines', line: {color: "#222831"}}
-].map(new_data);
+    console.log(x_time);
+    console.log(y_Q1);
+    console.log(y_Q2);
+    console.log(y_Q3);
 
-var layout = {
-    title: 'User Zoom Persists<br>When uirevision Unchanged',
-    uirevision:'true',
-    xaxis: {autorange: true},
-    yaxis: {autorange: true}
-};
+    var trace1 = {
+      x: x_time,
+      y: y_Q1,
+      mode: 'lines',
+      type: 'scatter'
+    };
 
-Plotly.react(graph, data, layout);
+    var trace2 = {
+      x: x_time,
+      y: y_Q2,
+      mode: 'lines',
+      type: 'scatter'
+    };
+    var trace3 = {
+      x: x_time,
+      y: y_Q3,
+      mode: 'lines',
+      type: 'scatter'
+    };
 
-var myPlot = document.getElementById('graphDiv');
+    var data = [trace1, trace2, trace3];
 
-var cnt = 0;
-var interval = setInterval(function() {
-    data = data.map(new_data);
+    var layout = {
+      yaxis: {
+         tickformat: '.0'
+      }
+    };
 
-    // user interation will mutate layout and set autorange to false
-    // so we need to reset it to true
-    layout.xaxis.autorange = true;
-    layout.yaxis.autorange = true;
-
-    // not changing uirevision will ensure that user interactions are unchanged
-    // layout.uirevision = rand();
-
-    Plotly.react(graph, data, layout);
-  if(cnt === 100) clearInterval(interval);
-}, 2500);
+    Plotly.newPlot('graph', data, layout);
+    } );
 
 
 
-Resources
     </script>
 
 
