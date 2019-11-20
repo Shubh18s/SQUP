@@ -56,9 +56,15 @@ def index():
     # return response
     # return redirect('http://www.google.com')
 
-@app.route('/user/<name>')
+
+
+@app.route('/user1/<name>')
 def user(name):
     return render_template('user.html', name=name)
+
+# @app.route('/analysis')
+# def analysis():
+#     return "hello"
 # @app.route('/user/<name>')
 # def user(name):
 #     return 'hello, %s!</h1>' % name
