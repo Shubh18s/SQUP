@@ -1,33 +1,20 @@
-
 {% extends "base.html" %}
 
 {% block page_content %}
-<div class="container">
-	<!--<div class="container">
-        <div style="float: left;">
-        <img src="..\static\picture.png" alt="Snow"  id="image1">
-        <img src="..\static\picture.png" alt="Forest"  id="image2"></div>
-        <div class="btn-group-vertical" style="float: right; margin-top: 20px;">
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="Q1">quality1</button>
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="Q2">quality2</button>
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="Q3">quality3</button>
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="ORI">Original</button>
-        </div>
-    </div>-->
+<div class="container" >
+
+    <div class="page-header">
+		<h1>Hello, {{ name }}!</h1>
+	</div>
+
 
     <div class="row">
-       <div class="column" style="float: left; margin: 10px"><img src="..\static\picture.png" alt="Forest"  id="image2"></div>
         <div class="column" style="float: left; margin: 10px">
             <img src="..\static\picture.png" alt="Snow"  id="image1"></div>
-         
+        <div class="column" style="float: left; margin: 10px"><img src="..\static\picture.png" alt="Forest"  id="image2"></div>
 
-        <div class=" btn-group btn-group-vertical" style="float: right; margin-top: 20px;">
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="Q1" >quality1</button>
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="Q2">quality2</button>
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="Q3">quality3</button>
-            <button type="button" class="btn btn-default btn-sm btn-rounded " id="ORI">Original</button>
-        </div>
     </div>
+
 
 
     <div style="margin:5px;">
@@ -39,8 +26,9 @@
         <label>H <input type="text" name="h" id="h" size="4"/></label>
     </div>
 
-<button type="button" class="btn btn-dark btn-sm btn-rounded " id="analysis" href="analysis.html"
-        style="width: 100px; height: 40px; float: right; margin-right: 10%; font-size: 100%">
+<button type="button" class="btn  btn-sm btn-rounded " id="analysis"
+        style="width: 100px; height: 40px; float: right; margin-right: 10%; font-size: 100%; background-color: #cdcdcd"
+        >
     <span class="glyphicon glyphicon-stats"></span> Analysis
 </button>
 
@@ -57,14 +45,21 @@
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
-    
-     
+
+
     <script src="https://unpkg.com/jcrop"></script>
 
     <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
     <link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.css" type="text/css" />
 
     <script type="text/javascript">
+//const stage = 
+
+
+//stage.listen('crop.move',(widget,e) => {
+  //document.getElementById("x").val(widget.pos);
+  
+//});
 
 jQuery(function($){
         // The variable jcrop_api will hold a reference to the
@@ -75,9 +70,9 @@ jQuery(function($){
         // at the whim of the user, I've wrapped the call into a function
 
         // How easy is this??
-        $('#image2').Jcrop({
+        $('#image1').Jcrop({
             onSelect: SETANOTHER,
-            aspectRatio: 16 / 10
+
 
         },function(){
 
@@ -93,24 +88,7 @@ jQuery(function($){
         };
 
         $('#analysis').click(function () {
-             window.location.href='/analysis?x1='+v1 + '&y1=' + v2;
-        });
-        $('#Q1').click(function () {
-            console.log('js/jquery.min.js')
-            jcrop_api.release();
-            jcrop_api.setImage('../static/rose.jpeg')
-        });
-        $('#Q2').click(function () {
-            jcrop_api.release();
-            jcrop_api.setImage('../static/poster.jpg')
-        });
-        $('#Q3').click(function () {
-            jcrop_api.release();
-            jcrop_api.setImage('../static/light.jpg')
-        });
-        $('#ORI').click(function () {
-            jcrop_api.release();
-            jcrop_api.setImage('../static/picture.png')
+             window.location.href='../analysis?x1='+v1 + '&y1=' + v2+ '&x2=' + v3+ '&y2=' + v4+ '&w= '+ w+ '&h=' + h;
         });
       });
 
@@ -120,6 +98,8 @@ jQuery(function($){
           v2 = c.y
           v3 = c.x2
           v4 = c.y2;
+          w=c.w
+          h=c.h
 
           $('#x').val(v1);
             $('#y').val(v2);
@@ -127,11 +107,15 @@ jQuery(function($){
             $('#y2').val(v4);
             $('#w').val(c.w);
             $('#h').val(c.h)
-          var image = $('#image1').Jcrop({
+          var image = $('#image2').Jcrop({
               setSelect:[v1 ,v2, v3, v4]
           })
        
       }
+
+
+
+
 
 </script>
 <!--<script src="G:\PythonVSCode\WebDev\flasky\templates\js\jcrop_main.js"></script>-->
