@@ -46,6 +46,7 @@ def user(name):
 #         abort(404)
 #     return '<h1>Hello, %s</h1>' % user.name
 
+
 @app.route('/analysis')
 def analyse():
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
