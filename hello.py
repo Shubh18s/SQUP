@@ -7,6 +7,8 @@ from flask import render_template
 from flask_bootstrap import Bootstrap
 import os
 
+
+
 #from dashapp import server as application
 
 app = Flask(__name__)
@@ -23,6 +25,10 @@ data3 = pd.read_csv("csv/Quality_3.csv")
 data1 = data1.append(data2)
 data1 = data1.append(data3)
 
+Q1Count = 0
+Q2Count = 0
+Q3Count = 0
+
 dt = []
 
 @app.route('/')
@@ -36,6 +42,7 @@ def user(name):
 
 @app.route('/analysis')
 def analysis():
+    soil = pd.read_csv("csv/soil.csv")
     x1 = int(request.args.get('x1'))
     y1 = int(request.args.get('y1'))
     x2 = int(request.args.get('x2'))
@@ -53,11 +60,38 @@ def analysis():
     data = data.drop(columns=['index'])
 
     print(data)
-    getData(data)
+    dataframe = getData(data)
+    d = dataframe.to_json(orient="columns")
 
+    Q1pro = round(Q1Count/(len(data))*10000)/100
+    Q2pro = round(Q2Count /(len(data))*10000)/100
+    Q3pro = round(Q3Count /(len(data))*10000)/100
+
+
+    Q1_yeild = (25 / (512 * 512)) * Q1Count * 121
+    Q2_yeild = (25 / (512 * 512)) * Q2Count * 119
+    Q3_yeild = (25 / (512 * 512)) * Q3Count * 112
+
+    Q1_rate = 430 * 0.009 * (15.5 - 4) + 0.6
+    Q2_rate = 430 * 0.009 * (14.5 - 4) + 0.6
+    Q3_rate = 430 * 0.009 * (13.5 - 4) + 0.6
+
+    Q1_PE = round(Q1_rate * Q1_yeild*100)/100
+    Q2_PE = round(Q2_rate * Q2_yeild*100)/100
+    Q3_PE = round(Q3_rate * Q3_yeild*100)/100
+    PE = round((Q1_PE + Q2_PE + Q3_PE)*100)/100
+    data = data.merge(soil, how="left", on="Pixel ID")
+
+    dataWithDataframe = pd.DataFrame(data.groupby(['Quality Band_x']).mean())
+    WithDataframe = dataWithDataframe.to_json(orient="columns")
 
     return render_template('analysis.html', x1=x1, x2=x2, y1=y1, y2=y2,
-                           w =request.args.get('w'), h = request.args.get('h'))
+                           w =request.args.get('w'), h = request.args.get('h'), d = d, Q1=Q1pro,Q2=Q2pro,Q3=Q3pro, dataframe = WithDataframe,
+                           Q1_PE = Q1_PE,
+                           Q2_PE = Q2_PE,
+                           Q3_PE = Q3_PE,
+                           total = PE,
+                           TotalLength = len(data))
 
 def ser(x):
     x = x[1:-1]
@@ -84,20 +118,29 @@ def getData(data):
     data["Time Series"] = data["Time Series"].apply(ser)
 
     Q1 = data[data["Quality Band"] == 1]
+    global Q1Count
+    Q1Count = len(Q1)
     Q1 = Q1.reset_index()
     Q1 = Q1.drop(columns=['index'])
 
     Q2 = data[data["Quality Band"] == 2]
+    global Q2Count
+    Q2Count = len(Q2)
     Q2 = Q2.reset_index()
     Q2 = Q2.drop(columns=['index'])
 
     Q3 = data[data["Quality Band"] == 3]
+    global Q3Count
+    Q3Count = len(Q3)
     Q3 = Q3.reset_index()
     Q3 = Q3.drop(columns=['index'])
 
     Q1_TS = mean_ser(Q1)
     Q2_TS = mean_ser(Q2)
     Q3_TS = mean_ser(Q3)
+
+
+
 
     dateTime = pd.read_csv("csv/sample.csv")
     date = dateTime['Date'].values
@@ -109,6 +152,7 @@ def getData(data):
 
     # d.plot(x='Date', y=['Q1_TS', 'Q2_TS', 'Q3_TS'])
     d.to_csv("dataframe.csv")
+    return d
 
 
 

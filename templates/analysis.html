@@ -1,84 +1,309 @@
-{% extends "base.html" %}
-
-
-{% block page_content %}
-    <div>
+{% extends "base.html" %} {% block page_content %}
+<div>
     <div class="sidenav" style="float: left">
-      <div id="preview-pane">
-        <div class="preview-container">
-          <img src="..\static\picture.png" class="jcrop-preview" alt="Preview" />
+        <div id="preview-pane">
+            <div class="preview-container">
+                <img src="..\static\Quality_Band.jpg" class="jcrop-preview" alt="Preview" />
+            </div>
         </div>
-      </div>
-    <table >
-          <tr>
-              <td>Q1</td>
-             <td class = "select"><input id = "Q1" type="number" min="5" max="100" value="20" style="color: black">%
-          </tr>
-          <tr>
-            <td>Q2</td>
-            <td class = "select">
-                <input id = "Q2" type="number" min="5" max="100" value="70" style="color: black">%
-          </tr>
-        <tr>
-        <td>Q3</td>
-        <td class = "select">
-            <input id = "Q3" type="number" min="5" max="100" value="10" style="color: black">%
-      </tr>
-    </table>
 
         <ul>
             <li>
-                Q1: 150T/H
+                Q1: 121T/H, ccs: 15.5
             </li>
             <li>
-                Q2: 120T/H
+                Q2: 119T/H, ccs: 14.5
             </li>
             <li>
-                Q3: 90T/H
+                Q3: 112T/H, ccs: 13.5
             </li>
         </ul>
+        <table class="table table-hover" style="background-color: white;margin-top: 10%; position: relative; width: 90%; margin-left: 5%">
+          <thead>
+            <tr>
+              <th scope="col">Quality</th>
+                <th scope="col">Proportion</th>
+                <th scope="col">Dollar</th>
 
-        <table >
-          <tr>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
               <td>Q1</td>
+              <td>{{ Q1 }}%</td>
+              <td>${{ Q1_PE }}</td>
+            </tr>
+            <tr>
+              <td>Q2</td>
+              <td>{{ Q2 }}%</td>
+              <td>${{ Q2_PE }}</td>
+            </tr>
+            <tr>
+              <td>Q3</td>
+              <td>{{ Q3 }}%</td>
+              <td>${{ Q3_PE }}</td>
+            </tr>
+            <tr>
+              <td></td>
+                <td><b>Total Potential</b></td>
+              <td>${{ total }}</td>
+            </tr>
+          </tbody>
+        </table>
 
-            <td >$</td>
-          </tr>
+
+
+    </div>
+
+    <!-- <td class = "select">
+                <input id = "Q2" type="number" min="5" max="100" value="70" style="color: black">%-->
+
+    <div class="container" style="float: right; position: relative; z-index: 1000; left: 8%; padding: 0% 0% 0% 0%; width: 90%; margin-top:5%">
+        <div class="jumbotron">NDVI Quality
+            <div class="container" id="graph">
+
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="col-sm-6">
+
+                <table class="table table-hover" style="background-color: white;margin-top: 8%; position: relative; width: 90%; margin-left: 5%">
+          <thead>
           <tr>
-            <td>Q2</td>
-            <td >$</td>
-          </tr>
-        <tr>
-        <td>Q3</td>
-            <td >$</td>
+                <th scope="col" colspan="2">#With 0-5 cm</th>
+            </tr>
+            <tr>
+                <th scope="col">#</th>
+              <th scope="col">Carbon</th>
+                <th scope="col">Phosphorous</th>
+                <th scope="col">Nitrogen</th>
+                <th scope="col">Water Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Q1</td>
+              <td id="Q1_Car"></td>
+              <td id="Q1_Nit"></td>
+                <td id="Q1_Pho"></td>
+                <td id="Q1_Water"></td>
+            </tr>
+            <tr>
+              <td>Q2</td>
+              <td id="Q2_Car"> </td>
+              <td id="Q2_Nit"></td>
+                <td id="Q2_Pho"> </td>
+                <td id="Q2_Water"></td>
+            </tr>
+            <tr>
+             <td>Q3</td>
+              <td id="Q3_Car"> </td>
+              <td id="Q3_Nit"></td>
+                <td id="Q3_Pho"></td>
+                <td id="Q3_Water"></td>
+            </tr>
+          </tbody>
+        </table>
 
-      </tr>
-    </table>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table-hover" style="background-color: white;margin-top: 8%; position: relative; width: 90%; margin-left: 5%">
+          <thead>
+            <tr>
+                <th scope="col" colspan="2">#With 5-15 cm</th>
+            </tr>
+            <tr>
+                <th scope="col">#</th>
+              <th scope="col">Carbon</th>
+                <th scope="col">Phosphorous</th>
+                <th scope="col">Nitrogen</th>
+                <th scope="col">Water Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Q1</td>
+              <td id="Q1_Car_5"></td>
+              <td id="Q1_Nit_5"></td>
+                <td id="Q1_Pho_5"></td>
+                <td id="Q1_Water_5"></td>
+            </tr>
+            <tr>
+              <td>Q2</td>
+              <td id="Q2_Car_5"> </td>
+              <td id="Q2_Nit_5"></td>
+                <td id="Q2_Pho_5"> </td>
+                <td id="Q2_Water_5"></td>
+            </tr>
+            <tr>
+             <td>Q3</td>
+              <td id="Q3_Car_5"> </td>
+              <td id="Q3_Nit_5"></td>
+                <td id="Q3_Pho_5"></td>
+                <td id="Q3_Water_5"></td>
+            </tr>
+          </tbody>
+        </table>
+            </div>
 
         </div>
 
+        <div class="row" >
+            <div class="col-sm-4">
+
+                <table class="table table-hover table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#Ideal Q1 Soil</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Carbon</td>
+                      <td>1.75</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Phosphorous</td>
+                      <td>0.25</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td >Nitrogen</td>
+                      <td>0.03</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+            </div>
+            <div class="col-sm-4">
+                <table class="table table-hover table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#Ideal Q2 Soil</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Carbon</td>
+                      <td>1.68</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Phosphorous</td>
+                      <td>0.23</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td >Nitrogen</td>
+                      <td>0.0277</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="col-sm-4">
+
+                <table class="table table-hover table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">#Ideal Q3 Soil</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Carbon</td>
+                      <td>1.63</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Phosphorous</td>
+                      <td>0.21</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td >Nitrogen</td>
+                      <td>0.0253</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-left: 20%">
+            <div class="col-sm-2">
+               <select id="selectQuality1" >
+                   <option></option>
+                  <option value="Q1" >Q1</option>
+                  <option value="Q2">Q2</option>
+                  <option value="Q3">Q3</option>
+                </select>
+                 <span class="glyphicon glyphicon-arrow-right"></span>
+                <select id="selectQuality2" >
+                  <option></option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <table class="table table-hover table-dark">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Q1</th>
+                      <td><input type="number" id="Q1" value={{ Q1 }} min="0" max="100" step="any" style="width: 100%; border: 0px" disabled="disabled" ></td>
+                      <td>%</td>
+                        <td id = "PotentialQ1">${{ Q1_PE }}</td>
+
+                    </tr>
+                    <tr>
+                      <th scope="row">Q2</th>
+                      <td><input type="number" id="Q2" value={{ Q2 }} min="0" max="100"  style="width: 100%; border: 0px" disabled="disabled"></td>
+                      <td>%</td>
+                        <td id = "PotentialQ2">${{ Q2_PE }}</td>
 
 
-<div class="container" style="float: right; position: relative; z-index: 1000; left: 17%; padding: 2% 2% 2% 2%">
-	<div class="jumbotron">
-    <div class="container" id="graph">
+                    </tr>
+                    <tr>
+                      <th scope="row">Q3</th>
+                      <td><input type="number" id="Q3" value = {{ Q3 }} min="0" max="100" style="width: 100%; border: 0px" disabled="disabled"></td>
+                      <td>%</td>
+                        <td id = "PotentialQ3">${{ Q3_PE }}</td>
 
+                    </tr>
+                    <tr>
+                      <th></th>
+                        <td>Total=</td>
+                      <td id = "totalPotential" colspan="2">  ${{ total }} </td>
+
+
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="well">
+                    <p>*N.B: Ideal values of soil components can only be derived from soil testing. These values are assumptions only.</p>
+                </div>
+            </div>
+
+        </div>
 
     </div>
-  </div>
 
 </div>
 
-    </div>
-
-
-
-
-
-
 {% endblock %}
-
-
 {% block scripts %}
     <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
     <link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.css" type="text/css" />
@@ -90,176 +315,440 @@
     <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 
     <style>
-    .sidenav {
-      height: 95%; /* Full-height: remove this if you want "auto" height */
-      width: 23%; /* Set the width of the sidebar */
-      position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-      z-index: 1000; /* Stay on top */
-      top: 7%; /* Stay at the top */
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.73); /* Black */
-      overflow-x: hidden; /* Disable horizontal scroll */
-
+        .sidenav {
+            height: 95%;
+            /* Full-height: remove this if you want "auto" height */
+            width: 23%;
+            /* Set the width of the sidebar */
+            position: fixed;
+            /* Fixed Sidebar (stay in place on scroll) */
+            z-index: 1000;
+            /* Stay on top */
+            top: 6%;
+            /* Stay at the top */
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.73);
+            /* Black */
+            overflow-x: hidden;
+            /* Disable horizontal scroll */
         }
-    table{
-        position: relative;
-        margin: 5%;
-        width:90%;
-        left: 1%;
-        z-index: 2000;
-        padding: 2%;
-        border: 2px white solid;
-        top: 5%;
-        padding: 0%;
-        color: #cdcdcd;
-    }
-    tr{
 
-        width: 100%;
-        z-index: 2000;
-        font-size: 15px;
-        color: #cdcdcd;
-    }
-    td{
-        border: white solid 1px;
-        width: 10%;
-    }
-    ul{
-        position: relative;
-        color: #cdcdcd;
-        margin: 2%;
-        top: 5%;
-    }
-    #preview-pane {
-      display: block;
-        width:80%;
-        height: 35%;
-        left: 8%;
-      position: relative;
-      z-index: 2000;
-      top: 2%;
-      padding: 2%;
-      border: 1px rgba(156, 238, 103, 0.4) solid;
-      background-color: white;
 
-      -webkit-border-radius: 6px;
-      -moz-border-radius: 6px;
-      border-radius: 6px;
 
-      -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-      -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-      box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-    }
+        ul {
+            position: relative;
+            color: #cdcdcd;
+            margin: 6%;
+            top: 1%;
+        }
 
-    /* The Javascript code will set the aspect ratio of the crop
+        #preview-pane {
+            display: block;
+            width: 80%;
+            height: 36%;
+            left: 8%;
+            position: relative;
+            z-index: 2000;
+            top: 2%;
+            padding: 2%;
+            border: 1px rgba(156, 238, 103, 0.4) solid;
+            background-color: white;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+        }
+        /* The Javascript code will set the aspect ratio of the crop
        area based on the size of the thumbnail preview,
        specified here */
-    .preview-container {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
+
+        .preview-container {
+            width: 250px;
+            height: 240px;
+            overflow: hidden;
+        }
     </style>
+    <script type="text/javascript">
+        var dataframe = {{ dataframe |safe}};
+        console.log(dataframe)
+        document.getElementById('Q1_Car').innerHTML=Math.round(dataframe["carbon 0 5"][1]*10000)/10000;
+        document.getElementById('Q2_Car').innerHTML=Math.round(dataframe["carbon 0 5"][2]*10000)/10000;
+        document.getElementById('Q3_Car').innerHTML=Math.round(dataframe["carbon 0 5"][3]*10000)/10000;
+
+        document.getElementById('Q1_Pho').innerHTML=Math.round(dataframe["Phos 0 5"][1]*10000)/10000;
+        document.getElementById('Q2_Pho').innerHTML=Math.round(dataframe["Phos 0 5"][2]*10000)/10000;
+        document.getElementById('Q3_Pho').innerHTML=Math.round(dataframe["Phos 0 5"][3]*10000)/10000;
+
+        document.getElementById('Q1_Nit').innerHTML=Math.round(dataframe["Nitrogen 0 5"][1]*10000)/10000;
+        document.getElementById('Q2_Nit').innerHTML=Math.round(dataframe["Nitrogen 0 5"][2]*10000)/10000;
+        document.getElementById('Q3_Nit').innerHTML=Math.round(dataframe["Nitrogen 0 5"][3]*10000)/10000;
+
+        document.getElementById('Q1_Water').innerHTML=Math.round(dataframe["water 0 5"][1]*10000)/10000;
+        document.getElementById('Q2_Water').innerHTML=Math.round(dataframe["water 0 5"][2]*10000)/10000;
+        document.getElementById('Q3_Water').innerHTML=Math.round(dataframe["water 0 5"][3]*10000)/10000;
+
+
+        document.getElementById('Q1_Car_5').innerHTML=Math.round(dataframe["carbon 5 15"][1]*10000)/10000;
+        document.getElementById('Q2_Car_5').innerHTML=Math.round(dataframe["carbon 5 15"][2]*10000)/10000;
+        document.getElementById('Q3_Car_5').innerHTML=Math.round(dataframe["carbon 5 15"][3]*10000)/10000;
+
+        document.getElementById('Q1_Pho_5').innerHTML=Math.round(dataframe["Phos 5 15"][1]*10000)/10000;
+        document.getElementById('Q2_Pho_5').innerHTML=Math.round(dataframe["Phos 5 15"][2]*10000)/10000;
+        document.getElementById('Q3_Pho_5').innerHTML=Math.round(dataframe["Phos 5 15"][3]*10000)/10000;
+
+        document.getElementById('Q1_Nit_5').innerHTML=Math.round(dataframe["Nitrogen 5 15"][1]*10000)/10000;
+        document.getElementById('Q2_Nit_5').innerHTML=Math.round(dataframe["Nitrogen 5 15"][2]*10000)/10000;
+        document.getElementById('Q3_Nit_5').innerHTML=Math.round(dataframe["Nitrogen 5 15"][3]*10000)/10000;
+
+        document.getElementById('Q1_Water_5').innerHTML=Math.round(dataframe["water 5 15"][1]*10000)/10000;
+        document.getElementById('Q2_Water_5').innerHTML=Math.round(dataframe["water 5 15"][2]*10000)/10000;
+        document.getElementById('Q3_Water_5').innerHTML=Math.round(dataframe["water 5 15"][3]*10000)/10000;
+
+
+    </script>
 
     <script type="text/javascript">
-        var x = {{x1}};
+        var x = {{ x1}};
         var y = {{ y1 }};
-        var x2 = {{x2}};
+        var x2 = {{ x2 }};
         var y2 = {{ y2 }};
         var w = {{ w }};
         var h = {{ h }};
+        var leftVariable;
+
+        function run(){
+            var value = document.getElementById("selectQuality1").value;
+            var value1 = document.getElementById("selectQuality2").value;
+
+            document.getElementById(value).enable = true;
+            document.getElementById(value1).enable = true;
+            console.log(value)
+
+        }
 
 
-    jQuery(function ($) {
+        jQuery(function($) {
+
+            $pcnt = $('#preview-pane .preview-container'),
+                xsize = $pcnt.width(),
+                ysize = $pcnt.height();
+            var rx = xsize / w;
+            var ry = ysize / h;
+
+            $('.jcrop-preview').css({
+                width: Math.round(rx * 512) + 'px',
+                height: Math.round(ry * 512) + 'px',
+                marginLeft: '-' + Math.round(rx * x) + 'px',
+                marginTop: '-' + Math.round(ry * y) + 'px',
+                marginRight: "-" + Math.round(w - rx * x2) + 'px',
+                marginBottom: "-" + Math.round(h - rx * y2) + 'px',
+
+            });
+
+            $('#selectQuality1').change(function() {
+                $('#Q1').attr('disabled', 'disabled')
+                $('#Q2').attr('disabled', 'disabled')
+                $('#Q3').attr('disabled', 'disabled')
+                var string = $('#selectQuality1').val()
+                if (string == "Q1") {
+
+                    var newOptions = {"":"",
+                        "Q2": "Q2",
+                      "Q3": "Q3"
+                    };
+                    var $el = $("#selectQuality2");
+                    $el.empty(); // remove old options
+                    $.each(newOptions, function(key,value) {
+                      $el.append($("<option></option>")
+                         .attr("value", value).text(key));
+                    });
+                } else if (string == "Q2") {
+                    var newOptions = {"":"",
+                        "Q1": "Q1",
+                      "Q3": "Q3"
+                    };
+                    var $el = $("#selectQuality2");
+                    $el.empty(); // remove old options
+                    $.each(newOptions, function(key,value) {
+                      $el.append($("<option></option>")
+                         .attr("value", value).text(key));
+                    });
+
+                } else if (string == "Q3") {
+
+                    var newOptions = {"":"",
+                        "Q1": "Q1",
+                      "Q2": "Q2"
+                    };
+                    var $el = $("#selectQuality2");
+                    $el.empty(); // remove old options
+                    $.each(newOptions, function(key,value) {
+                      $el.append($("<option></option>")
+                         .attr("value", value).text(key));
+                    });
+                }
+
+            })
+
+            $('#selectQuality2').change(function() {
+                var string = $('#selectQuality1').val()
+                var string1 = $('#selectQuality2').val()
+                $('#'+string1).removeAttr('disabled')
+                if(string1 == "Q1"){
+                    if(string == "Q2"){
+                        $('#'+string).removeAttr('disabled')
+                        $('#Q3').attr('disabled', 'disabled')
+                        leftVariable = "Q3"
+                    }
+                    else {
+                        $('#'+string).removeAttr('disabled')
+                        $('#Q2').attr('disabled', 'disabled')
+                        leftVariable = "Q2"
+                    }
+                }
+                if(string1 == "Q2"){
+                    if(string == "Q1"){
+                        $('#'+string).removeAttr('disabled')
+                        $('#Q3').attr('disabled', 'disabled')
+                        leftVariable = "Q3"
+                    }
+                    else {
+                        $('#'+string).removeAttr('disabled')
+                        $('#Q1').attr('disabled', 'disabled')
+                        leftVariable = "Q1"
+                    }
+                }
+                if(string1 == "Q3"){
+                    if(string == "Q2"){
+                        $('#'+string).removeAttr('disabled')
+                        $('#Q1').attr('disabled', 'disabled')
+                        leftVariable = "Q1"
+                    }
+                    else {
+                        $('#'+string).removeAttr('disabled')
+                        $('#Q2').attr('disabled', 'disabled')
+                        leftVariable = "Q2"
+                    }
+                }
+            console.log(leftVariable)
+            })
+
+            function potentialrun(){
+                var Q1 = $('#Q1').val();
+                var Q2 = $('#Q2').val();
+                var Q3 = $('#Q3').val();
+
+                var newCount_Q1 = Q1*100/10000*{{ TotalLength }}
+                var newCount_Q2 = Q2*100/10000*{{ TotalLength }}
+                var newCount_Q3 = Q3*100/10000*{{ TotalLength }}
 
 
 
-        var rx = 280/ w;
-        var ry = 250 / h;
+                var Q1_rate = 430 * 0.009 * (15.5 - 4) + 0.6,
+                    Q2_rate = 430 * 0.009 * (14.5 - 4) + 0.6,
+                    Q3_rate = 430 * 0.009 * (13.5 - 4) + 0.6
 
-        $('.jcrop-preview').css({
-            width: Math.round(rx * 512) + 'px',
-            height: Math.round(ry * 512) + 'px',
-            marginLeft: '-' + Math.round(rx * x) + 'px',
-            marginTop: '-' + Math.round(ry * y) + 'px',
-            marginRight: "-" + Math.round(w-rx*x2) + 'px',
-            marginBottom: "-" + Math.round(h-rx*y2) + 'px',
+                var Q1_yeild = (25 / (512 * 512)) * newCount_Q1 * 121,
+                    Q2_yeild = (25 / (512 * 512)) * newCount_Q2 * 119,
+                    Q3_yeild = (25 / (512 * 512)) * newCount_Q3 * 112
+
+                var Q1_PE = Math.round(Q1_rate * Q1_yeild*100)/100,
+                    Q2_PE = Math.round(Q2_rate * Q2_yeild*100)/100,
+                    Q3_PE = Math.round(Q3_rate * Q3_yeild*100)/100
+                var total = Math.round((Q1_PE+Q2_PE+Q3_PE)*100)/100
+
+                console.log(newCount_Q2)
+                console.log(Q2_yeild)
+                console.log(Q2_PE)
+
+                console.log(Q1_PE)
+                console.log(Q2_PE)
+                console.log(Q3_PE)
+                var beforeTotal = {{ total }}
+                 var change = Math.round((total-beforeTotal)*100)/100
+                $('#PotentialQ1').html('$'+Q1_PE)
+                $('#PotentialQ2').html('$'+Q2_PE)
+                $('#PotentialQ3').html('$'+Q3_PE)
+                $('#totalPotential').html('$'+total+'('+change+')')
 
 
-        });
+            }
 
+            $('#Q1').change(function(){
+                var left = 100 - $('#'+leftVariable).val()
+                potentialrun()
+                if(leftVariable == "Q2"){
+                    $('#Q3').val(left-$('#Q1').val());
+                }
+                else if(leftVariable == "Q3"){
+                    $('#Q2').val(left-$('#Q1').val());
+                }
+            })
 
-        $('#Q1').change(function () {
+            $('#Q2').change(function(){
+                potentialrun()
+                var left = 100 - $('#'+leftVariable).val()
+                if(leftVariable == "Q1"){
+                    $('#Q3').val(left-$('#Q2').val());
+                }
+                else if(leftVariable == "Q3"){
+                    $('#Q1').val(left-$('#Q2').val());
+                }
+            })
 
-            var left = 100-$('#Q1').val();
-            var portion2 = $('#Q2').val();
-            var portion3 = $('#Q3').val();
-            var newQ2 = portion2/100 * left;
-            var newQ3 = portion3/100 * left;
+            $('#Q3').change(function(){
+                potentialrun()
+                var left = 100 - $('#'+leftVariable).val()
+                if(leftVariable == "Q2"){
+                    $('#Q1').val(left-$('#Q3').val());
+                }
+                else if(leftVariable == "Q1"){
+                    $('#Q2').val(left-$('#Q3').val());
+                }
+            })
 
-             $('#Q2').val(Math.round(newQ2));
-             $('#Q3').val(Math.round(newQ3));
-             console.log(left)
-            console.log(portion2)
-            console.log(portion3)
-            console.log(newQ2)
-            console.log(newQ3)
         })
-
-
-    })
     </script>
     <script type="text/javascript">
-     Plotly.d3.csv("C:\\Users\\Aurora\\PycharmProjects\\SQUP\\dataframe.csv", function(buf){
-    var x_time = [], y_Q1 = [], y_Q2 = [], y_Q3 = [];
-    console.log(buf)
-    for (var i = 0; i < buf.length; i++) {
-      row = buf[i];
-      x_time.push( row['Date'] );
-      y_Q1.push( row['Q1_TS'] );
-      y_Q2.push( row['Q2_TS'] );
-      y_Q3.push( row['Q3_TS'] );
-    }
+        var json = {{ d|safe }}
 
-    console.log(x_time);
-    console.log(y_Q1);
-    console.log(y_Q2);
-    console.log(y_Q3);
-
-    var trace1 = {
-      x: x_time,
-      y: y_Q1,
-      mode: 'lines',
-      type: 'scatter'
-    };
-
-    var trace2 = {
-      x: x_time,
-      y: y_Q2,
-      mode: 'lines',
-      type: 'scatter'
-    };
-    var trace3 = {
-      x: x_time,
-      y: y_Q3,
-      mode: 'lines',
-      type: 'scatter'
-    };
-
-    var data = [trace1, trace2, trace3];
-
-    var layout = {
-      yaxis: {
-         tickformat: '.0'
-      }
-    };
-
-    Plotly.newPlot('graph', data, layout);
-    } );
+        var Data = [],
+            Q1 = [],
+            Q2 = [],
+            Q3 = []
 
 
+        for (var i = 0; i < Object.keys(json.Date).length; i++) {
+            Data.push(json.Date[i])
+        }
+        for (var i = 0; i < Object.keys(json.Q1_TS).length; i++) {
 
+            Q1.push(Math.round(json.Q1_TS[i] * 100000) / 100000)
+        }
+        for (var i = 0; i < Object.keys(json.Q2_TS).length; i++) {
+
+            Q2.push(Math.round(json.Q2_TS[i] * 100000) / 100000)
+        }
+        for (var i = 0; i < Object.keys(json.Q3_TS).length; i++) {
+            Q3.push(Math.round(json.Q3_TS[i] * 100000) / 100000)
+        }
+
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+
+        for (var i = 0; i < 30; i++) {
+            var date = new Date(Data[Data.length - 1]);
+            var datetime = date.addDays(7)
+            Data.push(datetime)
+        }
+
+            Q1F = Q1.slice(Q1.length-30, Q1.length),
+            Q2F = Q2.slice(Q2.length-30, Q2.length),
+            Q3F = Q3.slice(Q3.length-30, Q3.length)
+
+        Q1F = Q1F.map(function(x){return x*0.9})
+        Q2F = Q2F.map(function(x){return x*0.9})
+        Q3F = Q3F.map(function(x){return x*0.9})
+
+
+        Q1F.unshift(Q1.slice(-1)[0])
+        Q2F.unshift(Q2.slice(-1)[0])
+        Q3F.unshift(Q3.slice(-1)[0])
+        console.log(Data)
+
+
+
+        var trace1 = {
+            x: Data,
+            y: Q1,
+            name: "Quality 1",
+            mode: 'lines',
+            type: 'scatter'
+        };
+
+        var trace2 = {
+            x: Data,
+            y: Q2,
+            name: "Quality 2",
+            mode: 'lines',
+            type: 'scatter'
+        };
+        var trace3 = {
+            x: Data,
+            y: Q3,
+            name: "Quality 3",
+            mode: 'lines',
+            type: 'scatter'
+        };
+        var trace4 = {
+            x: Data.slice(70, Data.length),
+            y: Q1F,
+            name: "Quality 1 Forecast",
+            mode: 'lines',
+            type: 'scatter',
+            line: {
+                dash: 'dashdot',
+                width: 2
+            }
+        };
+
+        var trace5 = {
+            x: Data.slice(70, Data.length),
+            y: Q2F,
+            name: "Quality 2 Forecast",
+            mode: 'lines',
+            type: 'scatter',
+            line: {
+                dash: 'dashdot',
+                width: 2
+            }
+        };
+        var trace6 = {
+            x: Data.slice(70, Data.length),
+            y: Q3F,
+            name: "Quality 3 Forecast",
+            mode: 'lines',
+            type: 'scatter',
+            line: {
+                dash: 'dashdot',
+                width: 2
+            }
+        };
+
+        var data = [trace1, trace2, trace3, trace4, trace5, trace6];
+
+        var layout = {
+            title: 'Sugarcane Time series with Forecasting',
+            xaxis: {
+
+                rangeslider: {}
+            },
+            yaxis: {
+                autorange: true,
+                range: [0, 0.8],
+
+                fixedrange: true
+            },
+            shapes: [{
+                type: 'line',
+                x0: Data[0],
+                y0: 0.59,
+                x1: Data[Data.length - 1],
+                y1: 0.59,
+                line: {
+                    color: 'rgba(108,108,108,0.31)',
+                    width: 4,
+                    dash: 'dot'
+                }
+            }]
+        };
+
+        Plotly.newPlot('graph', data, layout);
     </script>
-
 
 {% endblock %}
