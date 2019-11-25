@@ -7,10 +7,10 @@ from flask import render_template
 from flask_bootstrap import Bootstrap
 import os
 
-
-
+from fbprophet import Prophet
 #from dashapp import server as application
 
+forecasting=[]
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
@@ -28,6 +28,7 @@ data1 = data1.append(data3)
 Q1Count = 0
 Q2Count = 0
 Q3Count = 0
+
 
 dt = []
 
@@ -61,7 +62,9 @@ def analysis():
 
     print(data)
     dataframe = getData(data)
+   
     d = dataframe.to_json(orient="columns")
+    d_predict = forecasting.to_json(orient="columns")
 
     Q1pro = round(Q1Count/(len(data))*10000)/100
     Q2pro = round(Q2Count /(len(data))*10000)/100
@@ -91,7 +94,7 @@ def analysis():
                            Q2_PE = Q2_PE,
                            Q3_PE = Q3_PE,
                            total = PE,
-                           TotalLength = len(data))
+                           TotalLength = len(data), d_predict=d_predict)
 
 def ser(x):
     x = x[1:-1]
@@ -138,9 +141,7 @@ def getData(data):
     Q1_TS = mean_ser(Q1)
     Q2_TS = mean_ser(Q2)
     Q3_TS = mean_ser(Q3)
-
-
-
+        
 
     dateTime = pd.read_csv("csv/sample.csv")
     date = dateTime['Date'].values
@@ -150,8 +151,68 @@ def getData(data):
                       "Q2_TS": Q2_TS,
                       "Q3_TS": Q3_TS})
 
+    
+    
+    #####   Forecast ####
+    
+    dfProphetQ1 = d[['Date', 'Q1_TS']]
+    dfProphetQ1=dfProphetQ1.rename(columns = {'Date':'ds', 'Q1_TS': 'y'})
+    
+    m_q1 = Prophet(interval_width=0.95)
+    m_q1.fit(dfProphetQ1)
+    future_q1 = m_q1.make_future_dataframe(periods=50, freq='w')
+    forecast_q1 = m_q1.predict(future_q1)
+    
+    dfProphetQ2 = d[['Date', 'Q2_TS']]
+    dfProphetQ2=dfProphetQ2.rename(columns = {'Date':'ds', 'Q2_TS': 'y'})
+    
+    m_q2 = Prophet()
+    m_q2.fit(dfProphetQ2)
+    future_q2 = m_q2.make_future_dataframe(periods=50, freq='w')
+    forecast_q2 = m_q2.predict(future_q2)
+    
+    
+    dfProphetQ3 = d[['Date', 'Q3_TS']]
+    dfProphetQ3=dfProphetQ3.rename(columns = {'Date':'ds', 'Q3_TS': 'y'})
+    
+    m_q3 = Prophet()
+    m_q3.fit(dfProphetQ3)
+    future_q3 = m_q3.make_future_dataframe(periods=50, freq='w')
+    forecast_q3 = m_q3.predict(future_q3)
+    
+    forecast1_df=pd.DataFrame(forecast_q1[['ds', 'yhat']])
+    forecast2_df=pd.DataFrame(forecast_q2[['ds', 'yhat']])
+    forecast3_df=pd.DataFrame(forecast_q3[['ds', 'yhat']])
+    
+    forecast1_df=forecast1_df.iloc[71:forecast1_df.size]
+    forecast2_df=forecast2_df.iloc[71:forecast2_df.size]
+    forecast3_df=forecast3_df.iloc[71:forecast3_df.size]
+    
+    forecast_date=forecast1_df["ds"].tolist()
+    forecast1_predict=forecast1_df["yhat"].tolist()
+    forecast2_predict=forecast2_df["yhat"].tolist()
+    forecast3_predict=forecast3_df["yhat"].tolist()
+    
+    d_predict = pd.DataFrame({"Date": forecast_date,
+                      "Q1_TS": forecast1_predict,
+                      "Q2_TS": forecast2_predict,
+                      "Q3_TS": forecast3_predict})
+    
+    global forecasting
+    forecasting=d_predict
+    
+    #forecast1_df=forecast1_df['Q2_TS']=forecast2_df['yhat']
+    #forecast1_df=forecast1_df['Q3_TS']=forecast3_df['yhat']
+    #forecast1_df=forecast1_df.reset_index()
+    #d_predict.to_csv("forecast.csv")
+    d.append(d_predict)
+    
+    
+    ######################
     # d.plot(x='Date', y=['Q1_TS', 'Q2_TS', 'Q3_TS'])
     d.to_csv("dataframe.csv")
+    
+    
     return d
 
 

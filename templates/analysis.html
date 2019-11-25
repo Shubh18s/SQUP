@@ -613,11 +613,15 @@
     </script>
     <script type="text/javascript">
         var json = {{ d|safe }}
+        var json_predict = {{ d_predict|safe }}
 
         var Data = [],
             Q1 = [],
             Q2 = [],
-            Q3 = []
+            Q3 = [],
+            Q1F = [],
+            Q2F = [],
+            Q3F = []
 
 
         for (var i = 0; i < Object.keys(json.Date).length; i++) {
@@ -634,6 +638,23 @@
         for (var i = 0; i < Object.keys(json.Q3_TS).length; i++) {
             Q3.push(Math.round(json.Q3_TS[i] * 100000) / 100000)
         }
+        
+        
+        for (var i = 0; i < Object.keys(json_predict.Date).length; i++) {
+            Data.push(json_predict.Date[i])
+        }
+        for (var i = 0; i < Object.keys(json_predict.Q1_TS).length; i++) {
+
+            Q1F.push(Math.round(json_predict.Q1_TS[i] * 100000) / 100000)
+        }
+        for (var i = 0; i < Object.keys(json_predict.Q2_TS).length; i++) {
+
+            Q2F.push(Math.round(json_predict.Q2_TS[i] * 100000) / 100000)
+        }
+        for (var i = 0; i < Object.keys(json_predict.Q3_TS).length; i++) {
+            Q3F.push(Math.round(json_predict.Q3_TS[i] * 100000) / 100000)
+        }
+        
 
         Date.prototype.addDays = function(days) {
             var date = new Date(this.valueOf());
